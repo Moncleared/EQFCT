@@ -66,7 +66,7 @@ namespace EQFCT.View
             }
         }
 
-        private void BidTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void BidTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             BidTextBox.ScrollToEnd();
         }
@@ -74,10 +74,18 @@ namespace EQFCT.View
         private async void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var vVM = ServiceLocator.Current.GetInstance<MainViewModel>();
-            using (var updateManager = UpdateManager.GitHubUpdateManager("https://github.com/Moncleared/EQFCT"))
+            vVM.OutputConsole += string.Format("Checking for update...{0}", Environment.NewLine);
+            try
             {
-                var releaseEntry = await updateManager.Result.UpdateApp();
-                vVM.OutputConsole += $"Update Version: {releaseEntry?.Version.ToString() ?? "No update"}" + Environment.NewLine;
+                using (var mgr = new UpdateManager("https://opendkp-publisher.s3.us-east-2.amazonaws.com/eqfct"))
+                {
+                    await mgr.UpdateApp();
+                }
+            }
+            catch (Exception vException)
+            {
+                vVM.OutputConsole += string.Format("Error checking for app update!...{0}", Environment.NewLine);
+                vVM.OutputConsole += string.Format("{0}", vException.Message);
             }
         }
     }
