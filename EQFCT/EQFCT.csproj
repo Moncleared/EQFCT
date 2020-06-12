@@ -37,6 +37,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.5\lib\net47\CommonServiceLocator.dll</HintPath>
@@ -142,6 +145,7 @@
     </ApplicationDefinition>
     <Compile Include="Converter\EnabledDisabledToBooleanConverter.cs" />
     <Compile Include="Helper\DrawHelper.cs" />
+    <Compile Include="Helper\SquirrelHelper.cs" />
     <Compile Include="Model\DmgModel.cs" />
     <Compile Include="Model\DmgDoneMessage.cs" />
     <Compile Include="Model\DmgDoneHeightChg.cs" />
@@ -212,6 +216,9 @@
     <Resource Include="Icons\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

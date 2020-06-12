@@ -1,4 +1,5 @@
 ﻿using CommonServiceLocator;
+using EQFCT.Helper;
 using EQFCT.ViewModel;
 using GalaSoft.MvvmLight.Command;
 using MahApps.Metro.Controls;
@@ -79,7 +80,18 @@ namespace EQFCT.View
             {
                 using (var mgr = new UpdateManager("https://opendkp-publisher.s3.us-east-2.amazonaws.com/eqfct"))
                 {
-                    await mgr.UpdateApp();
+                    
+                    var vSomething = await mgr.CheckForUpdate();
+                    if ( vSomething.ReleasesToApply.Any() )
+                    {
+                        vVM.OutputConsole += string.Format("Update available...{0}", Environment.NewLine);
+                        var vAppUpdated = await mgr.UpdateApp();
+                        vVM.OutputConsole += string.Format("Update has completed...please restart for the latest version{0}", Environment.NewLine);
+                    }
+                    else
+                    {
+                        vVM.OutputConsole += string.Format("No updates published...{0}", Environment.NewLine);
+                    }
                 }
             }
             catch (Exception vException)

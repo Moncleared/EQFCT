@@ -87,20 +87,6 @@ namespace EQFCT.ViewModel
             Messenger.Default.Register<GenericMessage>(
                 this, (action) => RecieveMessage(action)
                 );
-
-            Type t = typeof(MainViewModel);
-            string s = t.Assembly.FullName.ToString();
-            AppendText(s);
-
-            CheckAppUpdate();
-        }
-
-        private async Task CheckAppUpdate()
-        {
-            using (var mgr = new UpdateManager("C:\\Users\\Moncs\\Source\\repos\\EQFCT\\Releases"))
-            {
-                await mgr.UpdateApp();
-            }
         }
 
         private string fLockText;
