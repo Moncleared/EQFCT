@@ -178,5 +178,41 @@ namespace EQFCT.Properties {
                 this["DmgTakenShowMisses"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DmgDoneCritsOnly {
+            get {
+                return ((bool)(this["DmgDoneCritsOnly"]));
+            }
+            set {
+                this["DmgDoneCritsOnly"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008000")]
+        public global::System.Windows.Media.Color HealFontColor {
+            get {
+                return ((global::System.Windows.Media.Color)(this["HealFontColor"]));
+            }
+            set {
+                this["HealFontColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008000")]
+        public global::System.Windows.Media.Color YouHealFontColor {
+            get {
+                return ((global::System.Windows.Media.Color)(this["YouHealFontColor"]));
+            }
+            set {
+                this["YouHealFontColor"] = value;
+            }
+        }
     }
 }

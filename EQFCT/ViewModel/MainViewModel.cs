@@ -84,6 +84,7 @@ namespace EQFCT.ViewModel
             fWindowsLocked = true;
             LockText = "Unlock Windows";
             LogFile = Properties.Settings.Default.LogFile;
+            if (!string.IsNullOrWhiteSpace(LogFile) && File.Exists(LogFile) ) this.StartLogMonitoring();
             Messenger.Default.Register<GenericMessage>(
                 this, (action) => RecieveMessage(action)
                 );

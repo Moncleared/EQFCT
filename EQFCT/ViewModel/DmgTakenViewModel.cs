@@ -88,6 +88,22 @@ namespace EQFCT.ViewModel
             }
         }
 
+        private Color fHealFontColor;
+        public Color HealFontColor
+        {
+            get
+            {
+                return fHealFontColor;
+            }
+            set
+            {
+                fHealFontColor = value;
+                RaisePropertyChanged("HealFontColor");
+                Properties.Settings.Default.HealFontColor = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
         private bool fShowMisses;
         public bool ShowMisses
         {
@@ -119,6 +135,7 @@ namespace EQFCT.ViewModel
             FontSize = Properties.Settings.Default.DmgTakenFontSize;
             FontColor = Properties.Settings.Default.DmgTakenFontColor;
             ShowMisses = Properties.Settings.Default.DmgTakenShowMisses;
+            HealFontColor = Properties.Settings.Default.HealFontColor;
             ItemsToShowInCanvas = new ObservableCollection<DmgModel>();
 
             fBackgroundWorker = new BackgroundWorker()
@@ -146,6 +163,8 @@ namespace EQFCT.ViewModel
 
             //Only show misses if they're enabled
             if (pMessage.Damage.IsMiss && !this.ShowMisses) vShowMessage = false;
+
+            if (pMessage.Damage.IsHeal) pMessage.Damage.FontColor = this.HealFontColor;
 
             if ( vShowMessage ) this.AddDmgModel(pMessage.Damage);
         }

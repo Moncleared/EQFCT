@@ -102,5 +102,19 @@ namespace EQFCT.Model
                 RaisePropertyChanged("IsMiss");
             }
         }
+
+        private bool fIsHeal;
+        public bool IsHeal
+        {
+            get
+            {
+                return fIsHeal;
+            }
+            set
+            {
+                fIsHeal = value;
+                RaisePropertyChanged("IsHeal");
+            }
+        }
     }
 }

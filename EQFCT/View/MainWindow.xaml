@@ -77,6 +77,10 @@
                             <xctk:ColorPicker SelectedColor="{Binding DmgDoneViewModel.FontColor}"  Width="200" DisplayColorAndName="True"  ShowRecentColors="True"></xctk:ColorPicker>
                         </StackPanel>
                         <StackPanel VerticalAlignment="Top" Grid.Row="1" Orientation="Horizontal" Height="30">
+                            <TextBlock VerticalAlignment="Center" Grid.Row="1" Text="Heal Color: " />
+                            <xctk:ColorPicker SelectedColor="{Binding DmgDoneViewModel.HealFontColor}"  Width="200" DisplayColorAndName="True"  ShowRecentColors="True"></xctk:ColorPicker>
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Top" Grid.Row="1" Orientation="Horizontal" Height="30">
                             <TextBlock VerticalAlignment="Center" Grid.Row="1" Text="Show Misses? " />
                             <ComboBox SelectedValue="{Binding DmgDoneViewModel.ShowMisses}">
                                 <ComboBox.ItemTemplate>
@@ -90,6 +94,20 @@
                                 </ComboBox.Items>
                             </ComboBox>
                         </StackPanel>
+                        <StackPanel VerticalAlignment="Top" Grid.Row="1" Orientation="Horizontal" Height="30">
+                            <TextBlock VerticalAlignment="Center" Grid.Row="1" Text="Show Crits Only? " />
+                            <ComboBox SelectedValue="{Binding DmgDoneViewModel.CritsOnly}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={x:Static converters:EnabledDisabledToBooleanConverter.Instance}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                                <ComboBox.Items>
+                                    <system:Boolean>True</system:Boolean>
+                                    <system:Boolean>False</system:Boolean>
+                                </ComboBox.Items>
+                            </ComboBox>
+                        </StackPanel>                        
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
@@ -101,6 +119,10 @@
                             <TextBlock VerticalAlignment="Center" Grid.Row="1" Text="Font Color: " />
                             <xctk:ColorPicker SelectedColor="{Binding DmgTakenViewModel.FontColor}"  Width="200" DisplayColorAndName="True"  ShowRecentColors="True"></xctk:ColorPicker>
                         </StackPanel>
+                        <StackPanel VerticalAlignment="Top" Grid.Row="1" Orientation="Horizontal" Height="30">
+                            <TextBlock VerticalAlignment="Center" Grid.Row="1" Text="Heal Color: " />
+                            <xctk:ColorPicker SelectedColor="{Binding DmgTakenViewModel.HealFontColor}"  Width="200" DisplayColorAndName="True"  ShowRecentColors="True"></xctk:ColorPicker>
+                        </StackPanel>                        
                         <StackPanel VerticalAlignment="Top" Grid.Row="1" Orientation="Horizontal" Height="30">
                             <TextBlock VerticalAlignment="Center" Grid.Row="1" Text="Show Misses? " />
                             <ComboBox SelectedValue="{Binding DmgTakenViewModel.ShowMisses}">
@@ -114,14 +136,13 @@
                                     <system:Boolean>False</system:Boolean>
                                 </ComboBox.Items>
                             </ComboBox>
-                        </StackPanel>                        
+                        </StackPanel>
                     </StackPanel>
-                    <Button Grid.Row="4" Content="{Binding LockText}" Command="{Binding ToggleWindows}"></Button>
                 </Grid>
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="2" Margin="0,5,0,0">
-
+            <Button Grid.Row="4" Content="{Binding LockText}" Command="{Binding ToggleWindows}"></Button>
             <Button Content="Test" Command="{Binding DebugTest}"></Button>
         </StackPanel>
     </Grid>

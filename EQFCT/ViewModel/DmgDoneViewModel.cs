@@ -103,6 +103,38 @@ namespace EQFCT.ViewModel
                 Properties.Settings.Default.Save();
             }
         }
+        private bool fCritsOnly;
+        public bool CritsOnly
+        {
+            get
+            {
+                return fCritsOnly;
+            }
+            set
+            {
+                fCritsOnly = value;
+                RaisePropertyChanged("CritsOnly");
+                Properties.Settings.Default.DmgDoneCritsOnly = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private Color fHealFontColor;
+        public Color HealFontColor
+        {
+            get
+            {
+                return fHealFontColor;
+            }
+            set
+            {
+                fHealFontColor = value;
+                RaisePropertyChanged("HealFontColor");
+                Properties.Settings.Default.YouHealFontColor = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -119,6 +151,8 @@ namespace EQFCT.ViewModel
             FontSize = Properties.Settings.Default.DmgDoneFontSize;
             FontColor = Properties.Settings.Default.DmgDoneFontColor;
             ShowMisses = Properties.Settings.Default.DmgDoneShowMisses;
+            HealFontColor = Properties.Settings.Default.YouHealFontColor;
+
 
             ItemsToShowInCanvas = new ObservableCollection<DmgModel>();
             fBackgroundWorker = new BackgroundWorker()
@@ -144,7 +178,11 @@ namespace EQFCT.ViewModel
 
             //Only show misses if they're enabled
             if (pMessage.Damage.IsMiss && !this.ShowMisses) vShowMessage = false;
-            if ( vShowMessage) this.AddDmgModel(pMessage.Damage);
+            if (this.CritsOnly && !pMessage.Damage.IsCritical) vShowMessage = false;
+            if (pMessage.Damage.IsHeal) pMessage.Damage.FontColor = this.HealFontColor;
+
+            if ( vShowMessage) 
+                this.AddDmgModel(pMessage.Damage);
         }
 
         public void AddDmgModel(DmgModel pModel)

@@ -41,5 +41,14 @@
     <Setting Name="DmgTakenShowMisses" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="DmgDoneCritsOnly" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="HealFontColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF008000</Value>
+    </Setting>
+    <Setting Name="YouHealFontColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF008000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
