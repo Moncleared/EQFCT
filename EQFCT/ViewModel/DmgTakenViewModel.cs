@@ -171,16 +171,30 @@ namespace EQFCT.ViewModel
 
         public void AddDmgModel(DmgModel pModel)
         {
-            App.Current.Dispatcher.Invoke((Action)delegate {
-                this.ItemsToShowInCanvas.Add(pModel);
-            });
+            try
+            {
+                App.Current.Dispatcher.Invoke((Action)delegate {
+                    this.ItemsToShowInCanvas.Add(pModel);
+                });
+            }
+            catch
+            {
+
+            }
         }
 
         public void RemoveDmgModel(DmgModel pModel)
         {
-            App.Current.Dispatcher.Invoke((Action)delegate {
-                this.ItemsToShowInCanvas.Remove(pModel);
-            });
+            try
+            {
+                App.Current.Dispatcher.Invoke((Action)delegate {
+                    this.ItemsToShowInCanvas.Remove(pModel);
+                });
+            }
+            catch(Exception vException)
+            {
+
+            }
         }
 
         private void floatText(object sender, DoWorkEventArgs e)

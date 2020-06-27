@@ -1,4 +1,5 @@
 using CommonServiceLocator;
+using EQFCT.Extension;
 using EQFCT.Model;
 using EQFCT.Service;
 using EQFCT.View;
@@ -7,9 +8,12 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Squirrel;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -189,13 +193,15 @@ namespace EQFCT.ViewModel
         {
             Random vRandom = new Random();
             var vFontSize = vRandom.Next(24, 64);
-            Messenger.Default.Send<DmgDoneMessage>(new DmgDoneMessage() { Damage = new DmgModel() { Text = "111", Top = 0, FontSize = 24 } });
-            Messenger.Default.Send<DmgDoneMessage>(new DmgDoneMessage() { Damage = new DmgModel() { Text = "222", Top = 24, FontSize = vFontSize } });
-            Messenger.Default.Send<DmgDoneMessage>(new DmgDoneMessage() { Damage = new DmgModel() { Text = "333", Top = 48, FontSize = 24 } });
+            Messenger.Default.Send<DmgDoneMessage>(new DmgDoneMessage() { Damage = new DmgModel() { Text = String.Format("{0:n0}", vRandom.Next(1, 10000)), Top = 0, FontSize = 24 } });
+            Messenger.Default.Send<DmgDoneMessage>(new DmgDoneMessage() { Damage = new DmgModel() { Text = String.Format("{0:n0}", vRandom.Next(1, 10000)), IsCritical=true, Top = 0, FontSize = 24 } });
+            Messenger.Default.Send<DmgDoneMessage>(new DmgDoneMessage() { Damage = new DmgModel() { Text = String.Format("{0:n0}", vRandom.Next(1, 10000)), IsHeal = true, Top = 0, FontSize = 24 } });
+            Messenger.Default.Send<DmgDoneMessage>(new DmgDoneMessage() { Damage = new DmgModel() { Text = String.Format("{0:n0}", vRandom.Next(1, 10000)), Top = 0, FontSize = 24 } });
 
-            Messenger.Default.Send<DmgTakenMessage>(new DmgTakenMessage() { Damage = new DmgModel() { Text = "111", Top = 0, FontSize = 24 } });
-            Messenger.Default.Send<DmgTakenMessage>(new DmgTakenMessage() { Damage = new DmgModel() { Text = "222", Top = 24, FontSize = vFontSize } });
-            Messenger.Default.Send<DmgTakenMessage>(new DmgTakenMessage() { Damage = new DmgModel() { Text = "333", Top = 48, FontSize = 24 } });
+            Messenger.Default.Send<DmgTakenMessage>(new DmgTakenMessage() { Damage = new DmgModel() { Text = String.Format("-{0:n0}", vRandom.Next(1, 10000)), Top = 0, FontSize = 24 } });
+            Messenger.Default.Send<DmgTakenMessage>(new DmgTakenMessage() { Damage = new DmgModel() { Text = String.Format("-{0:n0}", vRandom.Next(1, 10000)), IsCritical = true, Top = 0, FontSize = 24 } });
+            Messenger.Default.Send<DmgTakenMessage>(new DmgTakenMessage() { Damage = new DmgModel() { Text = String.Format("+{0:n0}", vRandom.Next(1, 10000)), IsHeal = true, Top = 0, FontSize = 24 } });
+            Messenger.Default.Send<DmgTakenMessage>(new DmgTakenMessage() { Damage = new DmgModel() { Text = String.Format("-{0:n0}", vRandom.Next(1, 10000)), Top = 0, FontSize = 24 } });
         }
 
 
@@ -246,9 +252,11 @@ namespace EQFCT.ViewModel
             AppendText(pMessage.Message);
         }
 
-        private void AppendText(string pStringToAppend)
+        public void AppendText(string pStringToAppend)
         {
-            OutputConsole += pStringToAppend + Environment.NewLine;
+            var vTotalString = OutputConsole + pStringToAppend + Environment.NewLine;
+            IEnumerable<string> vLastSetOfString = vTotalString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Reverse().Take(100).Reverse();
+            OutputConsole = string.Join(Environment.NewLine, vLastSetOfString) + Environment.NewLine;
         }
     }
 }

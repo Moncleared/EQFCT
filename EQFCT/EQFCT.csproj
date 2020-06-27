@@ -144,6 +144,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\EnabledDisabledToBooleanConverter.cs" />
+    <Compile Include="Extension\StringExtensions.cs" />
     <Compile Include="Helper\DrawHelper.cs" />
     <Compile Include="Model\DmgModel.cs" />
     <Compile Include="Model\DmgDoneMessage.cs" />

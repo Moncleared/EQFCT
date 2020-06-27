@@ -51,11 +51,16 @@ namespace EQFCT.Service
                 Random vRandom = new Random();
                 while (true)
                 {
-                    Thread.Sleep(250);
+                    Thread.Sleep(500);
                     if (fWindowsUnlocked)
                     {
                         Messenger.Default.Send<DmgDoneMessage>(new DmgDoneMessage() { Damage = new DmgModel() { Text = String.Format("{0:n0}", vRandom.Next(1, 10000)), Top = 0, FontSize = 24 } });
+                        Messenger.Default.Send<DmgDoneMessage>(new DmgDoneMessage() { Damage = new DmgModel() { Text = String.Format("{0:n0}", vRandom.Next(1, 10000)), IsCritical = true, Top = 0, FontSize = 24 } });
+                        Messenger.Default.Send<DmgDoneMessage>(new DmgDoneMessage() { Damage = new DmgModel() { Text = String.Format("{0:n0}", vRandom.Next(1, 10000)), IsHeal = true, Top = 0, FontSize = 24 } });
+
                         Messenger.Default.Send<DmgTakenMessage>(new DmgTakenMessage() { Damage = new DmgModel() { Text = String.Format("-{0:n0}", vRandom.Next(1, 10000)), Top = 0, FontSize = 24 } });
+                        Messenger.Default.Send<DmgTakenMessage>(new DmgTakenMessage() { Damage = new DmgModel() { Text = String.Format("-{0:n0}", vRandom.Next(1, 10000)), IsCritical = true, Top = 0, FontSize = 24 } });
+                        Messenger.Default.Send<DmgTakenMessage>(new DmgTakenMessage() { Damage = new DmgModel() { Text = String.Format("+{0:n0}", vRandom.Next(1, 10000)), IsHeal = true, Top = 0, FontSize = 24 } });
                     }
                 }
             });

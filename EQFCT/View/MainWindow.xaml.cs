@@ -75,7 +75,7 @@ namespace EQFCT.View
         private async void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var vVM = ServiceLocator.Current.GetInstance<MainViewModel>();
-            vVM.OutputConsole += string.Format("Checking for update...{0}", Environment.NewLine);
+            vVM.AppendText("Checking for update...");
             try
             {
                 using (var mgr = new UpdateManager("https://opendkp-publisher.s3.us-east-2.amazonaws.com/eqfct"))
@@ -84,20 +84,22 @@ namespace EQFCT.View
                     var vSomething = await mgr.CheckForUpdate();
                     if ( vSomething.ReleasesToApply.Any() )
                     {
-                        vVM.OutputConsole += string.Format("Update available...{0}", Environment.NewLine);
+                        vVM.AppendText("Update available...");
+
                         var vAppUpdated = await mgr.UpdateApp();
-                        vVM.OutputConsole += string.Format("Update has completed...please restart for the latest version{0}", Environment.NewLine);
+                        vVM.AppendText("Update has completed...please restart for the latest version...");
+
                     }
                     else
                     {
-                        vVM.OutputConsole += string.Format("No updates published...{0}", Environment.NewLine);
+                        vVM.AppendText("No updates published...");
                     }
                 }
             }
             catch (Exception vException)
             {
-                vVM.OutputConsole += string.Format("Error checking for app update!...{0}", Environment.NewLine);
-                vVM.OutputConsole += string.Format("{0}", vException.Message);
+                vVM.AppendText("Error checking for app update!...");
+                vVM.AppendText(string.Format("{0}", vException.Message));
             }
         }
     }
